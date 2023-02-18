@@ -10,7 +10,7 @@
 <h4>Example with netmask: </h4>
 <p>neteye -i 172.16.0.0 -p 80 -m 16</p>
 <h4>Threads</h4>
-<p>Default threads -> 200 tou can change it with the -t parameter</p>
+<p>Default threads -> 200 you can change it with the -t parameter</p>
 <h3>Global mode</h3>
 <p>This type of scan its about all the public ipv4 address</p>
 <p>neteye -i 172.16.0.0 -p 80 -m 16 -t 80</p>
