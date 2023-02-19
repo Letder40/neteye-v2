@@ -9,7 +9,11 @@ import (
 	"strconv"
 	"time"
 	"sync"
+	"github.com/gookit/color"
 )
+var blue = color.FgLightBlue.Render
+var green = color.FgGreen.Render
+var cyan = color.FgCyan.Render
 
 func parameterHandler() (string,string,int,int) {
 	var ip string
@@ -139,14 +143,14 @@ func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, workers 
 
 func mainDial(socket string,ipTarget string, port string) {
 	
-	fmt.Printf(" ( 0) Looking at --> %s\r", ipTarget)
+	fmt.Printf(" %s at --> %s     \r", blue("( 0) Looking"), cyan(ipTarget))
 	dial, err := net.DialTimeout("tcp", socket, 2*time.Second )
 	
 	if err != nil {
 		return;
 	}else{
 		dial.Close()
-		fmt.Printf("-> %s has port %s open                    \n", ipTarget, port)
+		fmt.Printf("-> %s has %s port %s                          \n", cyan(ipTarget), port, green("open"))
 		return;
 	}
 }
