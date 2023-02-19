@@ -20,7 +20,7 @@ func parameterHandler() (string,string,int,int) {
 	flag.StringVar(&ip, "ip", "none", "Ip of network")
 	flag.StringVar(&port, "p", "", "port to scan for")
 	flag.IntVar(&mask, "m", 24, "network mask")
-	flag.IntVar(&threads, "w", 1500, "number of workers")
+	flag.IntVar(&threads, "w", 800, "number of workers")
 	
 	flag.Parse()
 
@@ -61,8 +61,8 @@ func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, threads 
 		}
 	case 16:
 		ipSplited := strings.Split(ip, ".")
-		for n4:=0; n4<255; n4++ {
-			for n3:=0; n3<=255; n3++ {
+		for n3:=0; n3<255; n3++ {
+			for n4:=0; n4<=255; n4++ {
 				ipSplited[3] = strconv.Itoa(n4)
 				ipSplited[2] = strconv.Itoa(n3)
 				ipTarget := ipSplited[0] + "." + ipSplited[1] + "." + ipSplited[2] + "." + ipSplited[3]
@@ -83,9 +83,9 @@ func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, threads 
 		}
 	case 8:
 		ipSplited := strings.Split(ip, ".")
-		for n4:=0; n4<255; n4++ {
-			for n3:=0; n3<255; n3++ {
-				for n2:=0; n2<=255; n2++ {
+		for n2:=0; n2<255; n2++ {
+			for n3:=0; n3<=255; n3++ {
+				for n4:=0; n4<=255; n4++ {
 					ipSplited[3] = strconv.Itoa(n4)
 					ipSplited[2] = strconv.Itoa(n3)
 					ipSplited[1] = strconv.Itoa(n2)
@@ -108,10 +108,10 @@ func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, threads 
 		}
 	case 0:
 		ipSplited := strings.Split(ip, ".")
-		for n4:=0; n4<=255; n4++ {
-			for n3:=0; n3<=255; n3++ {
-				for n2:=0; n2<=255; n2++ {
-					for n1:=0; n1<255; n1++ {
+		for n1:=1; n1<255; n1++ {
+			for n2:=0; n2<=255; n2++ {
+				for n3:=0; n3<=255; n3++ {
+					for n4:=0; n4<=255; n4++ {
 						ipSplited[3] = strconv.Itoa(n4)
 						ipSplited[2] = strconv.Itoa(n3)
 						ipSplited[1] = strconv.Itoa(n2)
@@ -138,7 +138,8 @@ func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, threads 
 }
 
 func mainDial(socket string,ipTarget string, port string) {
-
+	
+	fmt.Printf("Looking at --> %s\r", ipTarget)
 	dial, err := net.DialTimeout("tcp", socket, 2*time.Second )
 	
 	if err != nil {
