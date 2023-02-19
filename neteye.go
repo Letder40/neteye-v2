@@ -15,12 +15,12 @@ func parameterHandler() (string,string,int,int) {
 	var ip string
 	var port string
 	var mask int
-	var threads int
+	var workers int
 	
 	flag.StringVar(&ip, "ip", "none", "Ip of network")
 	flag.StringVar(&port, "p", "", "port to scan for")
 	flag.IntVar(&mask, "m", 24, "network mask")
-	flag.IntVar(&threads, "w", 800, "number of workers")
+	flag.IntVar(&workers, "w", 800, "number of workers")
 	
 	flag.Parse()
 
@@ -33,11 +33,11 @@ func parameterHandler() (string,string,int,int) {
 	}
 
 	
-	return ip, port, mask, threads
+	return ip, port, mask, workers
 }
 
-func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, threads int) {
-	sem := make(chan struct{}, threads)
+func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, workers int) {
+	sem := make(chan struct{}, workers)
 
 	switch mask {
 	case 24:
@@ -139,14 +139,14 @@ func loopSelector(wg *sync.WaitGroup, ip string, port string, mask int, threads 
 
 func mainDial(socket string,ipTarget string, port string) {
 	
-	fmt.Printf("Looking at --> %s\r", ipTarget)
+	fmt.Printf(" ( 0) Looking at --> %s\r", ipTarget)
 	dial, err := net.DialTimeout("tcp", socket, 2*time.Second )
 	
 	if err != nil {
 		return;
 	}else{
 		dial.Close()
-		fmt.Printf("%s has port %s open                    \n", ipTarget, port)
+		fmt.Printf("-> %s has port %s open                    \n", ipTarget, port)
 		return;
 	}
 }
@@ -154,7 +154,7 @@ func mainDial(socket string,ipTarget string, port string) {
 
 func main(){
 	var wg sync.WaitGroup
-	ip, port, mask, threads := parameterHandler()
-	loopSelector(&wg, ip, port, mask, threads)
+	ip, port, mask, workers := parameterHandler()
+	loopSelector(&wg, ip, port, mask, workers)
 	wg.Wait()
 }
