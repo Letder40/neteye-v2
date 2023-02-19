@@ -13,7 +13,7 @@ if [[ $exist == "" ]];then
      pacman -S go
    else
      apt update -y
-     apt install go -y 
+     apt install golang -y 
    fi
 fi
 
