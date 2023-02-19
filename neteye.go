@@ -20,7 +20,7 @@ func parameterHandler() (string,string,int,int) {
 	flag.StringVar(&ip, "ip", "none", "Ip of network")
 	flag.StringVar(&port, "p", "", "port to scan for")
 	flag.IntVar(&mask, "m", 24, "network mask")
-	flag.IntVar(&threads, "t", 200, "number of workers | threads")
+	flag.IntVar(&threads, "w", 1500, "number of workers")
 	
 	flag.Parse()
 

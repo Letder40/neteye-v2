@@ -6,7 +6,7 @@ if [[ $id != 0 ]]; then
    exit 1
 fi
 
-if [[ $exist != "" ]];then 
+if [[ $exist == "" ]];then 
    echo -ne "1. pacman | 2. apt \n-> "; read opt
    if [[ $opt == 1 ]]; then
      pacman -Sy
