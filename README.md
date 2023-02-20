@@ -10,10 +10,10 @@
 <h4>Example with netmask: </h4>
 <p>neteye -i 172.16.0.0 -p 80 -m 16</p>
 <h4>Workers</h4>
-<p>Default Workers -> 200 you can change it with the -t parameter</p>
+<p>Default Workers -> 800 you can change it with the -w parameter</p>
 <h3>Global mode</h3>
 <p>This type of scan its about all the public ipv4 address</p>
-<p>neteye -i 172.16.0.0 -p 80 -m 16 -t 80</p>
+<p>neteye -i 172.16.0.0 -p 80 -m 16 -w 1000</p>
 <h4>Example: </h4>
 <p>neteye -p 22 -m 0</p>
 
